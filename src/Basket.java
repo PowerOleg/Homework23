@@ -1,11 +1,10 @@
-import java.io.File;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class Basket {
-    String[] goodsList;
+    private String[] goodsList;
 
-//    int[] quantitylist;
-    int[] prices;
+    private int[] quantitylist;
+    private int[] prices;
 
     public void addToCart(int productNum, int amount) {
 
@@ -14,17 +13,42 @@ public class Basket {
     public void saveTxt(File textFile) {
 
 
-        try (PrintWriter out = new PrintWriter(file)) {
-        ...
-            for (String e : longArrInField)
-                out.print(e + " ");
-        }
-        ...
+//        try (PrintWriter out = new PrintWriter(file)) {
+//        ...
+//            for (String e : longArrInField)
+//                out.print(e + " ");
+//        }
+//        ...
 
     }
 
-    static Basket loadFromTxtFile(File textFile) {
+    public static Basket loadFromTxtFile(File textFile) {
+//        BufferedReader bufferedReader = new LineNumberReader();
+
+        try (FileReader fileReader = new FileReader(textFile)) {
+
+            
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
         return new Basket();
+    }
+
+
+    public String[] getGoodsList() {
+        return goodsList;
+    }
+
+    public int[] getQuantitylist() {
+        return quantitylist;
+    }
+
+    public int[] getPrices() {
+        return prices;
     }
 }
