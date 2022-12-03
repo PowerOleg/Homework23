@@ -1,10 +1,9 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
 
-public class Basket {
+public class Basket2 {
     private String[] goodsList;
 
     private int[] quantitylist;
@@ -13,7 +12,7 @@ public class Basket {
     public void addToCart(int productNum, int amount) {
 
     }
-//сохранить по массиву в каждой строке. Вначале строка из названий, затем строка из цен, строка из количеств
+    //сохранить по массиву в каждой строке. Вначале строка из названий, затем строка из цен, строка из количеств
     public void saveTxt(File textFile) {
 
 
@@ -26,21 +25,44 @@ public class Basket {
 
     }
 
-    public static Basket loadFromTxtFile(File textFile) {
-        Basket basket = new Basket();
+    public static Basket2 loadFromTxtFile(File textFile) {
+        Basket2 basket2 = new Basket2();
         String[] goodsList;
         int[] quantitylist;
+        StringBuilder text = new StringBuilder();
 
-//        BufferedReader bufferedReader = new BufferedReader();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(textFile))) {
 
-        try {
-            Object[] s = Files.lines(Path.of("basket.txt")).toArray();
-            System.out.println(s[0]);
-            System.out.println(s[1]);
-            System.out.println(s[2]);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                text.append(line);
+                text.append("\n");
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        Object[] s = text.toString().lines().toArray();
+        System.out.println(s[0]);
+        System.out.println(s[1]);
+        System.out.println(s[2]);
+
+//        int i = text.indexOf(";");
+//        int ii = text.indexOf(";", i+1);
+//        int iii = text.indexOf(";", ii+1);
+//        String s = text.toString().substring(0, i);
+//        String ss = text.toString().substring(i+3, ii);
+//        String sss = text.toString().substring(ii+3, iii);
+//        System.out.println(s);
+//        System.out.println(ss);
+//        System.out.println(sss);
+
+
+
+
+
+
 
 //        String[] goodsList3String = text.toString().split();
 //        System.out.println(Arrays.toString(goodsList3String));
@@ -49,7 +71,7 @@ public class Basket {
 
 //        basket.setGoodsList(goodsList);
 //        basket.setGoodsList(quantitylist);
-        return basket;
+        return basket2;
     }
 
 
