@@ -7,29 +7,42 @@ public class Main {
             "Rice(900g)", "Butter(175g)", "Broiler Chicken Thighs(900g)", "Tea(20*1.5g)"};
     static int[] quantitylist = new int[goodsList.length];
     static int[] prices = {21, 64, 129, 156, 129, 216, 120};
-    public static void printGoods() {
-        System.out.println("The product list for purchase:");
-        for (int i = 0; i < goodsList.length; i++) {
-            System.out.printf("%d. %s %d rub/piece\n", i + 1, goodsList[i], prices[i]);
-        }
-    }
-    public static void result() {
-        int lineNumber = 1;
-        int productIterationNumber = 0;
-        System.out.println("Orders:");
-        for (int i : quantitylist) {
-            if (i != 0) {
-                int priceInOrder = i * prices[productIterationNumber];
-                total += priceInOrder;
-                System.out.printf("%d. %s %d pieces %d rub/piece %d rub in order\n",
-                        lineNumber, goodsList[productIterationNumber], i,
-                        prices[productIterationNumber], priceInOrder);
-                lineNumber++;
-            }
-            productIterationNumber++;
-        }
-        System.out.println("Total: " + total + " rubles");
-    }
+
+
+
+
+
+    
+    //нужно чтобы метод выводил исходя и записей в basket.txt
+//    public static void printGoods() {
+//        System.out.println("The product list for purchase:");
+//        for (int i = 0; i < goodsList.length; i++) {
+//            System.out.printf("%d. %s %d rub/piece\n", i + 1, goodsList[i], prices[i]);
+//        }
+//    }
+
+
+
+
+
+    //переделать чтобы выводил исходя из того что в basket.txt
+//    public static void result() {
+//        int lineNumber = 1;
+//        int productIterationNumber = 0;
+//        System.out.println("Orders:");
+//        for (int i : quantitylist) {
+//            if (i != 0) {
+//                int priceInOrder = i * prices[productIterationNumber];
+//                total += priceInOrder;
+//                System.out.printf("%d. %s %d pieces %d rub/piece %d rub in order\n",
+//                        lineNumber, goodsList[productIterationNumber], i,
+//                        prices[productIterationNumber], priceInOrder);
+//                lineNumber++;
+//            }
+//            productIterationNumber++;
+//        }
+//        System.out.println("Total: " + total + " rubles");
+//    }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -58,7 +71,6 @@ public class Main {
                     continue;
                     }
                 } catch (NumberFormatException e) {
-/* ! */                     e.printStackTrace();
                     System.out.println("You entered not a number, please input a number");
                     continue;
                 }
