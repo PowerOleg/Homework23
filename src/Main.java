@@ -6,12 +6,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        String user = "basket";
+
         Scanner scanner = new Scanner(System.in);
-        File file = new File("basket.txt");
+        File file = new File(user + ".txt");
         Basket2 basket = null;
         if (!file.exists()) {
             try {
-                Files.copy(Path.of("template.txt"), Path.of("basket.txt"));
+                Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
                 basket = Basket2.loadFromTxtFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -19,7 +21,6 @@ public class Main {
         } else {
             basket = Basket2.loadFromTxtFile(file);
         }
-
         basket.printCart();
         while (true) {
             System.out.println("Choose a product, quantity or input end");
