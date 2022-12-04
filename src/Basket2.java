@@ -5,9 +5,14 @@ import java.util.Arrays;
 
 public class Basket2 {
     private String[] goodsList;
-
     private int[] quantitylist;
     private int[] prices;
+
+    public Basket2(String[] goodsList, int[] prices, int[] quantitylist) {
+        this.goodsList = goodsList;
+        this.prices = prices;
+        this.quantitylist = quantitylist;
+    }
 
     public void addToCart(int productNum, int amount) {
 
@@ -26,13 +31,12 @@ public class Basket2 {
     }
 
     public static Basket2 loadFromTxtFile(File textFile) {
-        Basket2 basket2 = new Basket2();
         String[] goodsList;
         int[] quantitylist;
+        int[] prices;
         StringBuilder text = new StringBuilder();
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(textFile))) {
-
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 text.append(line);
@@ -43,35 +47,13 @@ public class Basket2 {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Object[] s = text.toString().lines().toArray();
-        System.out.println(s[0]);
-        System.out.println(s[1]);
-        System.out.println(s[2]);
+        Object[] o = text.toString().lines().toArray();
 
-//        int i = text.indexOf(";");
-//        int ii = text.indexOf(";", i+1);
-//        int iii = text.indexOf(";", ii+1);
-//        String s = text.toString().substring(0, i);
-//        String ss = text.toString().substring(i+3, ii);
-//        String sss = text.toString().substring(ii+3, iii);
-//        System.out.println(s);
-//        System.out.println(ss);
-//        System.out.println(sss);
+        goodsList = o[0].toString().split(" ");
+        prices = Arrays.stream(o[1].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
+        quantitylist = Arrays.stream(o[2].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
 
-
-
-
-
-
-
-//        String[] goodsList3String = text.toString().split();
-//        System.out.println(Arrays.toString(goodsList3String));
-
-
-
-//        basket.setGoodsList(goodsList);
-//        basket.setGoodsList(quantitylist);
-        return basket2;
+        return new Basket2(goodsList, prices, quantitylist);
     }
 
 

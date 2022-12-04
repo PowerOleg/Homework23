@@ -48,8 +48,9 @@ public class Main {
     public static void main(String[] args) {
         File file = new File("basket.txt");
         Basket2 basket2 = Basket2.loadFromTxtFile(file);
-//        System.out.println(Arrays.toString(basket1.getGoodsList()));
-//        System.out.println(Arrays.toString(basket1.getQuantitylist()));
+        System.out.println(Arrays.toString(basket2.getGoodsList()));
+        System.out.println(Arrays.toString(basket2.getPrices()));
+        System.out.println(Arrays.toString(basket2.getQuantitylist()));
 
 
     }
