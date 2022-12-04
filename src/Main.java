@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -46,13 +48,12 @@ public class Main {
         Basket2 basket = null;
         if (!file.exists()) {
             try {
-                file.createNewFile();
-                //надо сделать чтобы создавался с шаблонным содержимым
+                Files.copy(Path.of("template.txt"), Path.of("basket.txt"));
                 basket = Basket2.loadFromTxtFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }else {
+        } else {
             basket = Basket2.loadFromTxtFile(file);
         }
 
@@ -65,7 +66,7 @@ public class Main {
             System.out.print(">>");
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("end")) {
-//!!                result();
+                result();
                 break;
             }
             String[] parts = input.split(" ");
@@ -73,7 +74,7 @@ public class Main {
                 System.out.println("You haven't written two numbers, please try again");
                 continue;
             }
-            //надо подумать как basket.getGoodsList сделать чтоб он воспринимал разные basket
+//!!надо подумать как basket.getGoodsList сделать чтоб он воспринимал разные basket
                 try {
                     if (Integer.parseInt(parts[0]) > basket.getGoodsList().length || Integer.parseInt(parts[0]) <= 0) {
                         System.out.println("Please input a correct product number");
