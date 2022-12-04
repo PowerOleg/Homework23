@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -42,10 +43,19 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         File file = new File("basket.txt");
-        Basket2 basket = Basket2.loadFromTxtFile(file);
-//        System.out.println(Arrays.toString(basket2.getGoodsList()));
-//        System.out.println(Arrays.toString(basket2.getPrices()));
-//        System.out.println(Arrays.toString(basket2.getQuantitylist()));
+        Basket2 basket = null;
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+                //надо сделать чтобы создавался с шаблонным содержимым
+                basket = Basket2.loadFromTxtFile(file);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            basket = Basket2.loadFromTxtFile(file);
+        }
+
 
 
 
