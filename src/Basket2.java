@@ -17,30 +17,25 @@ public class Basket2 {
     public void addToCart(int productNum, int amount) {
 
     }
-    //сохранить по массиву в каждой строке. Вначале строка из названий, затем строка из цен, строка из количеств
     public void saveTxt(File textFile) {
-
-//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(textFile));
-        try (PrintWriter out = new PrintWriter(textFile)) {
-
+        try (BufferedWriter out = new BufferedWriter(new PrintWriter(textFile))) {
             for (String e : goodsList)
-                out.print(e + " ");
-                out.println();
+                out.append(e + " ");
+                out.newLine();
             for (int i : prices)
-                out.print(i + " ");
-                out.println();
+                out.append(i + " ");
+                out.newLine();
             for (int i : quantitylist)
-                out.print(i + " ");
-                out.println();
-
-            out.flush();
+                out.append(i + " ");
+                out.newLine();
+                out.flush();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-
     }
-//надо попробовать вынести BufferedReader из метода
+//надо попробовать вынести объявление BufferedReader из метода
     public static Basket2 loadFromTxtFile(File textFile) {
         String[] goodsList;
         int[] quantitylist;
