@@ -9,17 +9,17 @@ public class Main {
         String user = "basket";
 
         Scanner scanner = new Scanner(System.in);
-        File file = new File(user + ".txt");
+        File file = new File(user + ".bin");
         Basket basket = null;
         if (!file.exists()) {
             try {
-                Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
-                basket = Basket.loadFromTxtFile(file);
+                Files.copy(Path.of("template.bin"), Path.of(String.valueOf(file)));
+                basket = Basket.loadFromBinFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            basket = Basket.loadFromTxtFile(file);
+            basket = Basket.loadFromBinFile(file);
         }
         basket.printCart();
         while (true) {
@@ -54,7 +54,7 @@ public class Main {
             int quantity = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNumber, quantity);
-            basket.saveTxt(file);
+            basket.saveBin(file);
         }
     }
 }
