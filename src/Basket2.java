@@ -20,16 +20,27 @@ public class Basket2 {
     //сохранить по массиву в каждой строке. Вначале строка из названий, затем строка из цен, строка из количеств
     public void saveTxt(File textFile) {
 
+//        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(textFile));
+        try (PrintWriter out = new PrintWriter(textFile)) {
 
-//        try (PrintWriter out = new PrintWriter(file)) {
-//        ...
-//            for (String e : longArrInField)
-//                out.print(e + " ");
-//        }
-//        ...
+            for (String e : goodsList)
+                out.print(e + " ");
+                out.println();
+            for (int i : prices)
+                out.print(i + " ");
+                out.println();
+            for (int i : quantitylist)
+                out.print(i + " ");
+                out.println();
+
+            out.flush();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
 
     }
-
+//надо попробовать вынести BufferedReader из метода
     public static Basket2 loadFromTxtFile(File textFile) {
         String[] goodsList;
         int[] quantitylist;
