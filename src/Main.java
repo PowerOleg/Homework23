@@ -10,16 +10,16 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         File file = new File(user + ".txt");
-        Basket2 basket = null;
+        Basket basket = null;
         if (!file.exists()) {
             try {
                 Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
-                basket = Basket2.loadFromTxtFile(file);
+                basket = Basket.loadFromTxtFile(file);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
-            basket = Basket2.loadFromTxtFile(file);
+            basket = Basket.loadFromTxtFile(file);
         }
         basket.printCart();
         while (true) {
