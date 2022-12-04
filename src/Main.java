@@ -20,7 +20,6 @@ public class Main {
             basket = Basket2.loadFromTxtFile(file);
         }
 
-
         basket.printCart();
         while (true) {
             System.out.println("Choose a product, quantity or input end");
@@ -35,7 +34,7 @@ public class Main {
                 System.out.println("You haven't written two numbers, please try again");
                 continue;
             }
-//!!надо подумать как basket.getGoodsList сделать чтоб он воспринимал разные basket
+
             try {
                 if (Integer.parseInt(parts[0]) > basket.getGoodsList().length || Integer.parseInt(parts[0]) <= 0) {
                     System.out.println("Please input a correct product number");

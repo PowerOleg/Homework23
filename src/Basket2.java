@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class Basket2 {
     private String[] goodsList;
-    private int[] quantitylist;
+    private int[] quantityList;
     private int[] prices;
 
     public Basket2(String[] goodsList, int[] prices) {
@@ -11,13 +11,11 @@ public class Basket2 {
         this.prices = prices;
     }
 
-    //надо попробовать вынести объявление BufferedReader из метода
     public static Basket2 loadFromTxtFile(File textFile) {
         String[] goodsList;
-        int[] quantitylist;
+        int[] quantityList;
         int[] prices;
         StringBuilder text = new StringBuilder();
-
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(textFile))) {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
@@ -30,18 +28,17 @@ public class Basket2 {
             e.printStackTrace();
         }
         Object[] o = text.toString().lines().toArray();
-
         goodsList = o[0].toString().split(" ");
         prices = Arrays.stream(o[1].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
-        quantitylist = Arrays.stream(o[2].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
+        quantityList = Arrays.stream(o[2].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
 
         Basket2 basket2 = new Basket2(goodsList, prices);
-        basket2.setQuantitylist(quantitylist);
+        basket2.setQuantitylist(quantityList);
         return basket2;
     }
 
     public void addToCart(int productNum, int number) {
-        this.quantitylist[productNum] += number;
+        this.quantityList[productNum] += number;
     }
 
     public void printCart() {
@@ -53,16 +50,17 @@ public class Basket2 {
 
     public void saveTxt(File textFile) {
         try (BufferedWriter out = new BufferedWriter(new PrintWriter(textFile))) {
-            for (String e : goodsList)
-                out.append(e + " ");
+            for (String s : goodsList)
+                out.append(s + " ");
             out.newLine();
             for (int i : prices)
                 out.append(i + " ");
             out.newLine();
-            for (int i : quantitylist)
+            for (int i : quantityList)
                 out.append(i + " ");
             out.newLine();
-            out.flush();
+                out.flush();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -75,7 +73,7 @@ public class Basket2 {
         int lineNumber = 1;
         int productIterationNumber = 0;
         System.out.println("Orders:");
-        for (int i : this.quantitylist) {
+        for (int i : this.quantityList) {
             if (i != 0) {
                 int priceInOrder = i * this.prices[productIterationNumber];
                 total += priceInOrder;
@@ -88,8 +86,6 @@ public class Basket2 {
         }
         System.out.println("Total: " + total + " rubles");
     }
-
-
     public String[] getGoodsList() {
         return goodsList;
     }
@@ -99,11 +95,11 @@ public class Basket2 {
     }
 
     public int[] getQuantitylist() {
-        return quantitylist;
+        return quantityList;
     }
 
     public void setQuantitylist(int[] quantitylist) {
-        this.quantitylist = quantitylist;
+        this.quantityList = quantitylist;
     }
 
     public int[] getPrices() {
@@ -113,6 +109,4 @@ public class Basket2 {
     public void setPrices(int[] prices) {
         this.prices = prices;
     }
-
-
 }
