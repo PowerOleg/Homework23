@@ -17,13 +17,13 @@ public class Main {
             try {
                 Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
 //                basket = Basket.loadFromTxtFile(file);
-                basket = ClientLog.fromJson(file);
+                basket = Basket.fromJson(file);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
 //            basket = Basket.loadFromTxtFile(file);
-                basket = ClientLog.fromJson(file);
+                basket = Basket.fromJson(file);
         }
         basket.printCart();
         while (true) {
@@ -59,7 +59,7 @@ public class Main {
 
             basket.addToCart(productNumber, quantity);
 //            basket.saveTxt(file);
-            ClientLog.toJson(basket);
+            basket.toJson(file);
         }
     }
 }
