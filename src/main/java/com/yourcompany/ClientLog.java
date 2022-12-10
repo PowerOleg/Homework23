@@ -2,8 +2,19 @@ package com.yourcompany;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.CSVWriter;
+import org.w3c.dom.*;
+import org.xml.sax.SAXException;
 
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,12 +49,60 @@ public static void readCSVFile(File txtFile) {
 }
 
 //////для тестирования ClientLog
-//    public static void main(String[] args) {
-//        ClientLog clientLog = new ClientLog();
-//        clientLog.log(1, 2);
-//        clientLog.log(1, 2);
-//        clientLog.log(5, 10);
-//        clientLog.exportAsCSV(new File("log.csv"));
-////        clientLog.readCSVFile(new File("log.csv"));
-//    }
+    public static void main(String[] args) {
+//        System.out.println(Arrays.toString(load()));
+    load();
+    }
+
+//    блок load говорит нужно ли загружать данные корзины при старте программы из файла (enabled),
+//    указывает имя этого файла (fileName) и формат (json или text). Ваша программа должна вести себя соответствующим образом.
+
+//    блок save говорит нужно ли сохранять данные корзины после каждого ввода, куда и в каком формате (text или json).
+//    блок log говорит нужно ли сохранять лог при завершении программы и в какой файл; формат лога всегда csv.
+    public static String[] load() {
+        String[] param = new String[3];
+        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.parse(new File("shop.xml"));
+
+            NodeList nodeList = document.getElementsByTagName("load");
+            System.out.println(nodeList+"NODELIST");
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Node node = nodeList.item(i);
+                Element element = null;
+                if (Node.ELEMENT_NODE == node.getNodeType()) {
+                    element = (Element) node;
+                }
+                System.out.println(node+"NODE");
+                System.out.println(element+"ELEMENT");
+                NamedNodeMap map = element.getAttributes();
+                for (int j = 0; j < map.getLength(); j++) {
+//                    param[j] = map.item(j).getNodeValue();
+                    System.out.println(map.item(j).getNodeValue());
+
+                }
+
+//                System.out.println(element.getElementsByTagName("enabled").item(0).getTextContent());
+
+            }
+        } catch (ParserConfigurationException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return param;
+   }
+
+   public static void save() {
+
+   }
+   public static void log() {
+
+   }
+
 }
