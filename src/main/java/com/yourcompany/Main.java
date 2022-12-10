@@ -11,19 +11,19 @@ public class Main {
         String user = "basket";
 
         Scanner scanner = new Scanner(System.in);
-        File file = new File(user + ".txt");
+        File file = new File(user + ".json");
         Basket basket = null;
         if (!file.exists()) {
             try {
                 Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
 //                basket = Basket.loadFromTxtFile(file);
-
+                basket = ClientLog.fromJson(file);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
 //            basket = Basket.loadFromTxtFile(file);
-
+                basket = ClientLog.fromJson(file);
         }
         basket.printCart();
         while (true) {

@@ -2,12 +2,15 @@ package com.yourcompany;
 
 import java.io.*;
 import java.util.Arrays;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Basket {
     private String[] goodsList;
     private int[] quantityList;
     private int[] prices;
 
+    public Basket() {}
     public Basket(String[] goodsList, int[] prices) {
         this.goodsList = goodsList;
         this.prices = prices;
