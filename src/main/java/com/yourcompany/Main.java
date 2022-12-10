@@ -1,3 +1,5 @@
+package com.yourcompany;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,12 +16,12 @@ public class Main {
         if (!file.exists()) {
             try {
                 Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
-                basket = Basket.loadFromTxtFile(file);
+//                basket = Basket.loadFromTxtFile(file);                                нужна загрузка из basket.json
             } catch (IOException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
         } else {
-            basket = Basket.loadFromTxtFile(file);
+//            basket = Basket.loadFromTxtFile(file);                                    нужна загрузка из basket.json
         }
         basket.printCart();
         while (true) {
@@ -54,7 +56,8 @@ public class Main {
             int quantity = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNumber, quantity);
-            basket.saveTxt(file);
+//            basket.saveTxt(file);
+            ClientLog.toJson(basket);
         }
     }
 }

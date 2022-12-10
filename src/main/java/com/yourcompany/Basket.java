@@ -1,3 +1,5 @@
+package com.yourcompany;
+
 import java.io.*;
 import java.util.Arrays;
 
@@ -22,11 +24,10 @@ public class Basket {
                 text.append(line);
                 text.append("\n");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         Object[] o = text.toString().lines().toArray();
         goodsList = o[0].toString().split(" ");
         prices = Arrays.stream(o[1].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
@@ -37,8 +38,8 @@ public class Basket {
         return basket;
     }
 
-    public void addToCart(int productNum, int number) {
-        this.quantityList[productNum] += number;
+    public void addToCart(int productNum, int quantity) {
+        this.quantityList[productNum] += quantity;
     }
 
     public void printCart() {
@@ -62,9 +63,9 @@ public class Basket {
                 out.flush();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
