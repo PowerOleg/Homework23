@@ -32,7 +32,7 @@ public class ClientLog {
 
    }
 
-   public static void fromJson() {
+   public static void fromJson(String jsonFile) {
 
    }
 }

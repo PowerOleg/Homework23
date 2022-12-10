@@ -15,13 +15,15 @@ public class Main {
         Basket basket = null;
         if (!file.exists()) {
             try {
-                Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
-//                basket = Basket.loadFromTxtFile(file);                                нужна загрузка из basket.json
+                Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
+//                basket = Basket.loadFromTxtFile(file);
+
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-//            basket = Basket.loadFromTxtFile(file);                                    нужна загрузка из basket.json
+//            basket = Basket.loadFromTxtFile(file);
+
         }
         basket.printCart();
         while (true) {
