@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        ClientLog clientLog = new ClientLog();
         String user = "basket";
 
         Scanner scanner = new Scanner(System.in);
@@ -32,6 +33,7 @@ public class Main {
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("end")) {
                 basket.result();
+                clientLog.exportAsCSV(new File("log.csv"));
                 break;
             }
             String[] parts = input.split(" ");
@@ -39,7 +41,7 @@ public class Main {
                 System.out.println("You haven't written two numbers, please try again");
                 continue;
             }
-
+            clientLog.log(parts[0], parts[1]);
             try {
                 if (Integer.parseInt(parts[0]) > basket.getGoodsList().length || Integer.parseInt(parts[0]) <= 0) {
                     System.out.println("Please input a correct product number");

@@ -10,11 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ClientLog {
-    List<String[]> logs = new ArrayList<>();
-    public void log(int productNum, int quantity) {
-        logs.add((productNum + "," + quantity).split(","));
+   private List<String[]> logs = new ArrayList<>();
+    public void log(String productNum, String quantity) {
+        logs.add(((productNum) + "," + quantity).split(","));
     }
-//неплохо бы чтобы была дата и время записи лога
     public void exportAsCSV(File txtFile) {
         try (CSVWriter csvWriter = new CSVWriter(new FileWriter(txtFile ,true))) {
             csvWriter.writeAll(logs);
