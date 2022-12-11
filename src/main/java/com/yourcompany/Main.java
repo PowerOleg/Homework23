@@ -30,7 +30,6 @@ public class Main {
             }
         } else {
             if (setting.getLoadFormat().equalsIgnoreCase("json")) {                               //1 3
-
                 if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                     //startLoad enabled option1 1
                     basket = Basket.fromJson(file);
                 } else {

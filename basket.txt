@@ -1,3 +1,0 @@
-Bread(500g) Milk(1000g) Buckwheat(900g) Rice(900g) Butter(175g) Broiler_Chicken_Thighs(900g) Tea(20*1.5g) 
-21 64 129 156 129 216 120 
-0 0 0 0 0 0 0
