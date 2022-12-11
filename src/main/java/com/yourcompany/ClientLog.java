@@ -58,11 +58,4 @@ public static void readCSVFile(File txtFile) {
 //    блок log говорит нужно ли сохранять лог при завершении программы и в какой файл; формат лога всегда csv.
 
 
-   public static void save() {
-
-   }
-   public static void log() {
-
-   }
-
 }

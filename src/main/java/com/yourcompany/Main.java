@@ -8,18 +8,12 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-    File settingFile = new File("shop.xml");
-    Setting setting = new Setting(settingFile);
-        
-
-
-
-
-
+        File settingFile = new File("shop.xml");
+        Setting setting = new Setting(settingFile);
         ClientLog clientLog = new ClientLog();
-        String user = "basket";
-
         Scanner scanner = new Scanner(System.in);
+
+        String user = "basket";
         File file = new File(user + ".json");
         Basket basket = null;
         if (!file.exists()) {
@@ -32,7 +26,10 @@ public class Main {
             }
         } else {
 //            basket = Basket.loadFromTxtFile(file);
-                basket = Basket.fromJson(file);
+            if (!setting.getLoadEnabled().equalsIgnoreCase("true")) {
+                file = new File( "template.json");
+            }
+            basket = Basket.fromJson(file);
         }
         basket.printCart();
         while (true) {
