@@ -8,6 +8,14 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+    File settingFile = new File("shop.xml");
+    Setting setting = new Setting(settingFile);
+        
+
+
+
+
+
         ClientLog clientLog = new ClientLog();
         String user = "basket";
 
