@@ -1,11 +1,19 @@
+package com.yourcompany;
+
 import java.io.*;
 import java.util.Arrays;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class Basket {
     private String[] goodsList;
     private int[] quantityList;
     private int[] prices;
 
+    public Basket() {}
     public Basket(String[] goodsList, int[] prices) {
         this.goodsList = goodsList;
         this.prices = prices;
@@ -22,11 +30,10 @@ public class Basket {
                 text.append(line);
                 text.append("\n");
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
+
         Object[] o = text.toString().lines().toArray();
         goodsList = o[0].toString().split(" ");
         prices = Arrays.stream(o[1].toString().split(" ")).mapToInt(n -> Integer.parseInt(n)).toArray();
@@ -37,8 +44,8 @@ public class Basket {
         return basket;
     }
 
-    public void addToCart(int productNum, int number) {
-        this.quantityList[productNum] += number;
+    public void addToCart(int productNum, int quantity) {
+        this.quantityList[productNum] += quantity;
     }
 
     public void printCart() {
@@ -62,9 +69,9 @@ public class Basket {
                 out.flush();
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -108,5 +115,31 @@ public class Basket {
 
     public void setPrices(int[] prices) {
         this.prices = prices;
+    }
+
+    public void toJson(File fileName) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+            bufferedWriter.write(gson.toJson(this));
+            bufferedWriter.flush();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Basket fromJson(File jsonFile) {
+        Basket basket;
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        Gson gson = gsonBuilder.create();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(jsonFile))) {
+            basket = gson.fromJson(bufferedReader, Basket.class);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return basket;
     }
 }
