@@ -13,7 +13,7 @@ public class Main {
         ClientLog clientLog = new ClientLog();
         Scanner scanner = new Scanner(System.in);
 
-        File file = new File(setting.getLoadFileName());                                            
+        File file = new File(setting.getLoadFileName());
         Basket basket = null;
         if (!file.exists()) {
             try {
@@ -62,7 +62,6 @@ public class Main {
             }
 // операция записи логов в список
             clientLog.log(parts[0], parts[1]);
-
             try {
                 if (Integer.parseInt(parts[0]) > basket.getGoodsList().length || Integer.parseInt(parts[0]) <= 0) {
                     System.out.println("Please input a correct product number");
@@ -85,7 +84,6 @@ public class Main {
                 if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
                     basket.toJson(new File(setting.getSaveFileName()));
                 }
-
             } else {
                 if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
                     basket.saveTxt(new File(setting.getSaveFileName()));                                                               //2 2
