@@ -25,7 +25,6 @@ public class Setting {
     public Setting(File settingfile) {
         importXMLElements(settingfile);
     }
-
     public String[] getElement(Document document, String getElementsByTagName) {
         String[] elements = new String[3];
         NodeList nodeList = document.getElementsByTagName(getElementsByTagName);
@@ -71,65 +70,64 @@ public class Setting {
         return elementsArray;
     }
 
-
     public String getLoadEnabled() {
         return loadEnabled;
-    }
-
-    public String getLoadFileName() {
-        return loadFileName;
-    }
-
-    public String getLoadFormat() {
-        return loadFormat;
-    }
-
-    public String getSaveEnabled() {
-        return saveEnabled;
-    }
-
-    public String getSaveFileName() {
-        return saveFileName;
-    }
-
-    public String getSaveFormat() {
-        return saveFormat;
-    }
-
-    public String getLogEnabled() {
-        return logEnabled;
-    }
-
-    public String getLogFileName() {
-        return logFileName;
     }
 
     public void setLoadEnabled(String loadEnabled) {
         this.loadEnabled = loadEnabled;
     }
 
+    public String getLoadFileName() {
+        return loadFileName;
+    }
+
     public void setLoadFileName(String loadFileName) {
         this.loadFileName = loadFileName;
+    }
+
+    public String getLoadFormat() {
+        return loadFormat;
     }
 
     public void setLoadFormat(String loadFormat) {
         this.loadFormat = loadFormat;
     }
 
+    public String getSaveEnabled() {
+        return saveEnabled;
+    }
+
     public void setSaveEnabled(String saveEnabled) {
         this.saveEnabled = saveEnabled;
+    }
+
+    public String getSaveFileName() {
+        return saveFileName;
     }
 
     public void setSaveFileName(String saveFileName) {
         this.saveFileName = saveFileName;
     }
 
+    public String getSaveFormat() {
+        return saveFormat;
+    }
+
     public void setSaveFormat(String saveFormat) {
         this.saveFormat = saveFormat;
     }
 
+    public String getLogEnabled() {
+        return logEnabled;
+    }
+
     public void setLogEnabled(String logEnabled) {
         this.logEnabled = logEnabled;
+    }
+
+    public String getLogFileName() {
+        return logFileName;
     }
 
     public void setLogFileName(String logFileName) {

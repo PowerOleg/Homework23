@@ -13,30 +13,29 @@ public class Main {
         ClientLog clientLog = new ClientLog();
         Scanner scanner = new Scanner(System.in);
 
-
-        File file = new File(setting.getLoadFileName());                                            //1 2
+        File file = new File(setting.getLoadFileName());                                            
         Basket basket = null;
         if (!file.exists()) {
             try {
-                if (setting.getLoadFormat().equalsIgnoreCase("json")) {                                 //1 3
+                if (setting.getLoadFormat().equalsIgnoreCase("json")) {
                     Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
                     basket = Basket.fromJson(file);
                 } else {
-                    Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));           //1 2
+                    Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));
                     basket = Basket.loadFromTxtFile(file);
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            if (setting.getLoadFormat().equalsIgnoreCase("json")) {                               //1 3
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                     //startLoad enabled option1 1
+            if (setting.getLoadFormat().equalsIgnoreCase("json")) {
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {
                     basket = Basket.fromJson(file);
                 } else {
                     basket = Basket.fromJson(new File("template.json"));
                 }
             } else {
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                        //1 1
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {
                     basket = Basket.loadFromTxtFile(file);
                 } else {
                     basket = Basket.loadFromTxtFile(new File("template.txt"));
@@ -50,7 +49,10 @@ public class Main {
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("end")) {
                 basket.result();
-                clientLog.exportAsCSV(new File("log.csv"));
+                if (setting.getLogEnabled().equalsIgnoreCase("true")) {
+                    File logFile = new File(setting.getLogFileName());
+                    clientLog.exportAsCSV(logFile);
+                }
                 break;
             }
             String[] parts = input.split(" ");
@@ -58,7 +60,9 @@ public class Main {
                 System.out.println("You haven't written two numbers, please try again");
                 continue;
             }
+// операция записи логов в список
             clientLog.log(parts[0], parts[1]);
+
             try {
                 if (Integer.parseInt(parts[0]) > basket.getGoodsList().length || Integer.parseInt(parts[0]) <= 0) {
                     System.out.println("Please input a correct product number");
@@ -77,14 +81,14 @@ public class Main {
             int quantity = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNumber, quantity);
-            if (setting.getSaveFormat().equalsIgnoreCase("json")) {                               //2 3
-                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {             //startLoad enabled option2 1
-                    basket.toJson(new File(setting.getSaveFileName()));                                          //2 2
+            if (setting.getSaveFormat().equalsIgnoreCase("json")) {
+                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
+                    basket.toJson(new File(setting.getSaveFileName()));
                 }
 
             } else {
-                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {                //2 1
-                    basket.saveTxt(new File(setting.getSaveFileName()));                                      //2 2                         //2 2
+                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
+                    basket.saveTxt(new File(setting.getSaveFileName()));                                                               //2 2
                 }
             }
         }
