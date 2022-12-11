@@ -50,7 +50,8 @@ public static void readCSVFile(File txtFile) {
 
 //////для тестирования ClientLog
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(load()));
+        System.out.println(Arrays.deepToString(loadXML()));
+//        loadXML();
     }
 
 //    блок load говорит нужно ли загружать данные корзины при старте программы из файла (enabled),
@@ -58,27 +59,32 @@ public static void readCSVFile(File txtFile) {
 
 //    блок save говорит нужно ли сохранять данные корзины после каждого ввода, куда и в каком формате (text или json).
 //    блок log говорит нужно ли сохранять лог при завершении программы и в какой файл; формат лога всегда csv.
-    public static String[] load() {
-        String[] param = new String[3];
+    public static String[] getElement(Document document, String getElementsByTagName) {
+        String[] elements = new String[3];
+        NodeList nodeList = document.getElementsByTagName(getElementsByTagName);
+        Node node = nodeList.item(0);
+        if (Node.ELEMENT_NODE == node.getNodeType()) {
+            Element element = (Element) node;
+            elements[0] = element.getElementsByTagName("enabled").item(0).getTextContent();
+            elements[1] = element.getElementsByTagName("fileName").item(0).getTextContent();
+            if (element.getChildNodes().item(5) != null) {
+                elements[2] = element.getElementsByTagName("format").item(0).getTextContent();
+            }
+        }
+        return elements;
+    }
+
+    public static String[][] loadXML() {
+        String[][] elementsArray = new String[3][];
         DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(new File("shop.xml"));
 
-            NodeList nodeList = document.getChildNodes();
+            elementsArray[0] = getElement(document, "load");
+            elementsArray[1] = getElement(document, "save");
+            elementsArray[2] = getElement(document, "log");
 
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Node node = nodeList.item(i);
-                Element element = null;
-                if (Node.ELEMENT_NODE == node.getNodeType()) {
-                    element = (Element) node;
-                }
-//                System.out.println(element.getTextContent());
-                param[0] = element.getElementsByTagName("enabled").item(0).getTextContent();
-                param[1] = element.getElementsByTagName("fileName").item(0).getTextContent();
-                param[2] = element.getElementsByTagName("format").item(0).getTextContent();
-
-            }
         } catch (ParserConfigurationException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -86,9 +92,7 @@ public static void readCSVFile(File txtFile) {
         } catch (SAXException e) {
             throw new RuntimeException(e);
         }
-
-
-        return param;
+        return elementsArray;
    }
 
    public static void save() {
