@@ -13,23 +13,36 @@ public class Main {
         ClientLog clientLog = new ClientLog();
         Scanner scanner = new Scanner(System.in);
 
-        String user = "basket";
-        File file = new File(user + ".json");
+
+        File file = new File(setting.getLoadFileName());                                            //1 2
         Basket basket = null;
         if (!file.exists()) {
             try {
-                Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
-//                basket = Basket.loadFromTxtFile(file);
-                basket = Basket.fromJson(file);
+                if (setting.getLoadFormat().equalsIgnoreCase("json")) {                                 //1 3
+                    Files.copy(Path.of("template.json"), Path.of(String.valueOf(file)));
+                    basket = Basket.fromJson(file);
+                } else {
+                    Files.copy(Path.of("template.txt"), Path.of(String.valueOf(file)));           //1 2
+                    basket = Basket.loadFromTxtFile(file);
+                }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         } else {
-//            basket = Basket.loadFromTxtFile(file);
-            if (!setting.getLoadEnabled().equalsIgnoreCase("true")) {
-                file = new File( "template.json");
+            if (setting.getLoadFormat().equalsIgnoreCase("json")) {                               //1 3
+
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                     //startLoad enabled option1 1
+                    basket = Basket.fromJson(file);
+                } else {
+                    basket = Basket.fromJson(new File("template.json"));
+                }
+            } else {
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                        //1 1
+                    basket = Basket.loadFromTxtFile(file);
+                } else {
+                    basket = Basket.loadFromTxtFile(new File("template.txt"));
+                }
             }
-            basket = Basket.fromJson(file);
         }
         basket.printCart();
         while (true) {
@@ -65,8 +78,16 @@ public class Main {
             int quantity = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNumber, quantity);
-//            basket.saveTxt(file);
-            basket.toJson(file);
+            if (setting.getLoadFormat().equalsIgnoreCase("json")) {                               //1 3
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                //startLoad enabled option1 1
+                    basket.toJson(file);
+                }
+
+            } else {
+                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                //1 1
+                    basket.saveTxt(file);
+                }
+            }
         }
     }
 }
