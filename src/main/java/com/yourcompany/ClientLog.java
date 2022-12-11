@@ -50,8 +50,7 @@ public static void readCSVFile(File txtFile) {
 
 //////для тестирования ClientLog
     public static void main(String[] args) {
-//        System.out.println(Arrays.toString(load()));
-    load();
+        System.out.println(Arrays.toString(load()));
     }
 
 //    блок load говорит нужно ли загружать данные корзины при старте программы из файла (enabled),
@@ -66,24 +65,18 @@ public static void readCSVFile(File txtFile) {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(new File("shop.xml"));
 
-            NodeList nodeList = document.getElementsByTagName("load");
-            System.out.println(nodeList+"NODELIST");
+            NodeList nodeList = document.getChildNodes();
+
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Node node = nodeList.item(i);
                 Element element = null;
                 if (Node.ELEMENT_NODE == node.getNodeType()) {
                     element = (Element) node;
                 }
-                System.out.println(node+"NODE");
-                System.out.println(element+"ELEMENT");
-                NamedNodeMap map = element.getAttributes();
-                for (int j = 0; j < map.getLength(); j++) {
-//                    param[j] = map.item(j).getNodeValue();
-                    System.out.println(map.item(j).getNodeValue());
-
-                }
-
-//                System.out.println(element.getElementsByTagName("enabled").item(0).getTextContent());
+//                System.out.println(element.getTextContent());
+                param[0] = element.getElementsByTagName("enabled").item(0).getTextContent();
+                param[1] = element.getElementsByTagName("fileName").item(0).getTextContent();
+                param[2] = element.getElementsByTagName("format").item(0).getTextContent();
 
             }
         } catch (ParserConfigurationException e) {
