@@ -77,14 +77,14 @@ public class Main {
             int quantity = Integer.parseInt(parts[1]);
 
             basket.addToCart(productNumber, quantity);
-            if (setting.getLoadFormat().equalsIgnoreCase("json")) {                               //1 3
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                //startLoad enabled option1 1
-                    basket.toJson(file);
+            if (setting.getSaveFormat().equalsIgnoreCase("json")) {                               //2 3
+                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {             //startLoad enabled option2 1
+                    basket.toJson(new File(setting.getSaveFileName()));                                          //2 2
                 }
 
             } else {
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {                //1 1
-                    basket.saveTxt(file);
+                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {                //2 1
+                    basket.saveTxt(new File(setting.getSaveFileName()));                                      //2 2                         //2 2
                 }
             }
         }
