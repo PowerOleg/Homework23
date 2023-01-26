@@ -54,7 +54,7 @@ public class Basket {
             System.out.printf("%d. %s %d rub/piece\n", i + 1, goodsList[i], prices[i]);
         }
     }
-
+//если тут выбрасывать исключение наверх, а не try  ресурсами, то нужно закрывать поток!!точнее
     public void saveTxt(File textFile) {
         try (BufferedWriter out = new BufferedWriter(new PrintWriter(textFile))) {
             for (String s : goodsList)
@@ -131,8 +131,9 @@ public class Basket {
 
     public static Basket fromJson(File jsonFile) {
         Basket basket;
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
+//        GsonBuilder gsonBuilder = new GsonBuilder();
+//        Gson gson = gsonBuilder.create();
+        Gson gson = new Gson();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(jsonFile))) {
             basket = gson.fromJson(bufferedReader, Basket.class);
         } catch (FileNotFoundException e) {

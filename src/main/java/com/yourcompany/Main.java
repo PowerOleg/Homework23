@@ -29,13 +29,13 @@ public class Main {
             }
         } else {
             if (setting.getLoadFormat().equalsIgnoreCase("json")) {
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {
+                if (setting.getLoadEnabled()) {
                     basket = Basket.fromJson(file);
                 } else {
                     basket = Basket.fromJson(new File("template.json"));
                 }
             } else {
-                if (setting.getLoadEnabled().equalsIgnoreCase("true")) {
+                if (setting.getLoadEnabled()) {
                     basket = Basket.loadFromTxtFile(file);
                 } else {
                     basket = Basket.loadFromTxtFile(new File("template.txt"));
@@ -49,7 +49,7 @@ public class Main {
             String input = scanner.nextLine();
             if (input.toLowerCase().equals("end")) {
                 basket.result();
-                if (setting.getLogEnabled().equalsIgnoreCase("true")) {
+                if (setting.getLogEnabled()) {
                     File logFile = new File(setting.getLogFileName());
                     clientLog.exportAsCSV(logFile);
                 }
@@ -81,11 +81,11 @@ public class Main {
 
             basket.addToCart(productNumber, quantity);
             if (setting.getSaveFormat().equalsIgnoreCase("json")) {
-                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
+                if (setting.getSaveEnabled()) {
                     basket.toJson(new File(setting.getSaveFileName()));
                 }
             } else {
-                if (setting.getSaveEnabled().equalsIgnoreCase("true")) {
+                if (setting.getSaveEnabled()) {
                     basket.saveTxt(new File(setting.getSaveFileName()));                                                               //2 2
                 }
             }
